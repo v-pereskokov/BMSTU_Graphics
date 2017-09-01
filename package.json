@@ -4,7 +4,7 @@
   "description": "Bmstu graphic course",
   "main": "bundle.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --inline --port 3200 --content-base ./src --open",
+    "start": "./node_modules/.bin/webpack-dev-server",
     "webpack": "./node_modules/.bin/webpack --config webpack.config.js"
   },
   "repository": {
