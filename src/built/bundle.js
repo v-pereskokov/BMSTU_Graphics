@@ -1,1 +1,175 @@
-!function(t){function e(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,e),o.l=!0,o.exports}var n={};e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,r){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:r})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=2)}([function(t,e,n){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var o=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),u=function(){function t(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"picture",n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"2d";r(this,t),this._canvas=document.querySelector("."+e),this._context=this.canvas.getContext(n)}return o(t,[{key:"setCallback",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"click",e=arguments[1];this.canvas.addEventListener(t,e)}},{key:"context",get:function(){return this._context}},{key:"canvas",get:function(){return this._canvas}}]),t}();e.default=u},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.SQUARE_SIZE=70,e.SQUARE_COLOR="#00aa00",e.POINT_COLOR="#000000"},function(t,e,n){"use strict";function r(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e.default=t,e}function o(t){return t&&t.__esModule?t:{default:t}}var u=n(0),c=o(u),i=n(1),a=r(i),l=new c.default,f=l.context;f.fillStyle=a.SQUARE_COLOR,f.fillRect(0,0,a.SQUARE_SIZE,a.SQUARE_SIZE),l.setCallback("click",function(t){f.fillRect(t.offsetX,t.offsetY,1,1),f.fillStyle=a.POINT_COLOR;for(var e=0;e<a.SQUARE_SIZE;++e)f.fillRect(e,e,1,1)})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Canvas = function () {
+  function Canvas() {
+    var className = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'picture';
+    var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '2d';
+
+    _classCallCheck(this, Canvas);
+
+    this._canvas = document.querySelector('.' + className);
+    this._context = this.canvas.getContext(context);
+  }
+
+  _createClass(Canvas, [{
+    key: 'setCallback',
+    value: function setCallback() {
+      var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'click';
+      var callback = arguments[1];
+
+      this.canvas.addEventListener(type, callback);
+    }
+  }, {
+    key: 'context',
+    get: function get() {
+      return this._context;
+    }
+  }, {
+    key: 'canvas',
+    get: function get() {
+      return this._canvas;
+    }
+  }]);
+
+  return Canvas;
+}();
+
+exports.default = Canvas;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var SQUARE_SIZE = 70;
+var SQUARE_COLOR = '#00aa00';
+var POINT_COLOR = '#000000';
+
+exports.SQUARE_SIZE = SQUARE_SIZE;
+exports.SQUARE_COLOR = SQUARE_COLOR;
+exports.POINT_COLOR = POINT_COLOR;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _canvas = __webpack_require__(0);
+
+var _canvas2 = _interopRequireDefault(_canvas);
+
+var _constant = __webpack_require__(1);
+
+var constants = _interopRequireWildcard(_constant);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var canvas = new _canvas2.default();
+var ctx = canvas.context;
+
+ctx.fillStyle = constants.SQUARE_COLOR;
+ctx.fillRect(0, 0, constants.SQUARE_SIZE, constants.SQUARE_SIZE);
+
+canvas.setCallback('click', function (event) {
+  ctx.fillRect(event.offsetX, event.offsetY, 1, 1);
+
+  ctx.fillStyle = constants.POINT_COLOR;
+
+  for (var i = 0; i < constants.SQUARE_SIZE; ++i) {
+    ctx.fillRect(i, i, 1, 1);
+  }
+});
+
+/***/ })
+/******/ ]);
+//# sourceMappingURL=bundle.js.map
