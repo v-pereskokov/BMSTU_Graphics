@@ -1,5 +1,9 @@
 ## Seminar 1
 
+### Deploy
+Auto deploy from Travis CI to Heroku  
+[link to app](https://bmstu-graphics.herokuapp.com)
+
 ### Run
 #### Install dependencies
 ```bash
