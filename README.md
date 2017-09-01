@@ -1,1 +1,1 @@
-# BMSTU_graphics
+# BMSTU Graphics course
