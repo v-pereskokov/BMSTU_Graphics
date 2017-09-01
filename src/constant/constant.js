@@ -1,0 +1,9 @@
+const SQUARE_SIZE = 70;
+const SQUARE_COLOR = '#00aa00';
+const POINT_COLOR = '#000000';
+
+export {
+  SQUARE_SIZE,
+  SQUARE_COLOR,
+  POINT_COLOR
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## BMSTU computer graphics course
 
 ### Description
@@ -16,6 +17,9 @@ Example:
 * JavaScript
 * Webpack
 * Webpack dev server (hot load)
+=======
+## Seminar 1
+>>>>>>> seminar-1
 
 ### Run
 #### Install dependencies

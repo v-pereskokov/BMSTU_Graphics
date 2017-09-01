@@ -1,0 +1,43 @@
+{
+  "name": "bmstu-graphics",
+  "version": "1.0.0",
+  "description": "Bmstu graphic course",
+  "main": "bundle.js",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server --hot",
+    "server": "node server.js",
+    "webpack-dev": "./node_modules/.bin/webpack --config webpack.config.dev.js",
+    "webpack-prod": "./node_modules/.bin/webpack --config webpack.config.prod.js -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladpereskokov/BMSTU_graphics.git"
+  },
+  "keywords": [
+    "bmstu",
+    "js",
+    "webpack",
+    "canvas"
+  ],
+  "author": "Vladislav Pereskokov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vladpereskokov/BMSTU_graphics/issues"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "3.1.2",
+    "babel-core": "6.24.1",
+    "babel-loader": "7.0.0",
+    "babel-preset-env": "1.4.0",
+    "babel-preset-es2015": "6.24.1",
+    "express": "^4.15.4",
+    "source-map-loader": "^0.2.1",
+    "webpack": "2.2.0",
+    "webpack-combine-loaders": "2.0.3",
+    "webpack-dev-server": "2.4.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4"
+  }
+}

@@ -1,0 +1,24 @@
+language: node_js
+sudo: false
+node_js:
+- '7'
+
+branches:
+  only:
+  - deploy
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: $HEROKU_KEY
+  app: bmstu-graphics
+  on:
+    repo: vladpereskokov/BMSTU_graphics
+    branch: deploy
+  skip_cleanup: true
+
+before_script:
+  - npm install
+
+script:
+  - npm run webpack-prod
