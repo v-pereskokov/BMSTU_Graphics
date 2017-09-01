@@ -4,8 +4,8 @@
   "description": "Bmstu graphic course",
   "main": "bundle.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --hot",
-    "server": "node server.js",
+    "start": "node server",
+    "hot-server": "./node_modules/.bin/webpack-dev-server --config webpack.config.dev.js --hot",
     "webpack-dev": "./node_modules/.bin/webpack --config webpack.config.dev.js",
     "webpack-prod": "./node_modules/.bin/webpack --config webpack.config.prod.js -p"
   },
