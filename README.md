@@ -1,5 +1,9 @@
 ## BMSTU computer graphics course
 
+### Deploy
+Auto deploy from Travis CI to Heroku  
+[link to app](https://bmstu-graphics.herokuapp.com)
+
 ### Description
 Computer graphics in WEB by JavaScript  
 
