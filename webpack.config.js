@@ -27,7 +27,6 @@ module.exports = {
   devServer: {
     contentBase: './src/',
     publicPath: '/built/',
-    hot: true,
     open: true,
     inline: true,
     port: 3200
