@@ -8,7 +8,7 @@ const size = 40;
 ctx.fillStyle = '#00aa00';
 ctx.fillRect(size, size, size, size);
 
-canvas.canvas.addEventListener('click', event => {
+canvas.setCallback('click', event => {
   ctx.fillRect(event.offsetX, event.offsetY, 1, 1);
 
   ctx.fillStyle = '#000000';

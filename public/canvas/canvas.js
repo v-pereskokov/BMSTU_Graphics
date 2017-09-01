@@ -11,4 +11,8 @@ export default class Canvas {
   get canvas() {
     return this._canvas;
   }
+
+  setCallback(type = 'click', callback) {
+    this.canvas.addEventListener(type, callback);
+  }
 }
