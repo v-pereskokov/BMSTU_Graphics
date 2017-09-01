@@ -6,4 +6,4 @@ export {
   SQUARE_SIZE,
   SQUARE_COLOR,
   POINT_COLOR
-}
+};
