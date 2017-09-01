@@ -6,7 +6,8 @@
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --hot",
     "server": "node server.js",
-    "webpack": "./node_modules/.bin/webpack --config webpack.config.js"
+    "webpack-dev": "./node_modules/.bin/webpack --config webpack.config.dev.js",
+    "webpack-prod": "./node_modules/.bin/webpack --config webpack.config.prod.js -p"
   },
   "repository": {
     "type": "git",
