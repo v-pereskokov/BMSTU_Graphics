@@ -1,10 +1,10 @@
 module.exports = {
   entry: {
-    'bundle': './public/index.js'
+    'bundle': './src/index.js'
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/public/built'
+    path: __dirname + '/src/built'
   },
 
   watch: true,
@@ -25,7 +25,7 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: './public/',
+    contentBase: './src/',
     publicPath: '/built/'
   }
 };
