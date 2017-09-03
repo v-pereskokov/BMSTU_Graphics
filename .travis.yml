@@ -13,7 +13,7 @@ deploy:
     secure: $HEROKU_KEY
   app: bmstu-graphics
   on:
-    repo: vladpereskokov/BMSTU_graphics
+    repo: vladpereskokov/BMSTU_Graphics
     branch: deploy
   skip_cleanup: true
 
