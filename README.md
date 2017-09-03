@@ -1,6 +1,6 @@
 ## Seminar 1
 
-[![Build Status](https://travis-ci.org/vladpereskokov/BMSTU_graphics.svg?branch=deploy)](https://travis-ci.org/vladpereskokov/BMSTU_graphics)
+[![Build Status](https://travis-ci.org/vladpereskokov/BMSTU_Graphics.svg?branch=deploy)](https://travis-ci.org/vladpereskokov/BMSTU_Graphics)  
 
 ### Deploy
 Auto deploy from Travis CI to Heroku  
