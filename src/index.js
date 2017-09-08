@@ -7,33 +7,16 @@ const ctx = canvas.context;
 ctx.fillStyle = constants.SQUARE_COLOR;
 ctx.fillRect(0, 0, constants.SQUARE_SIZE, constants.SQUARE_SIZE);
 
-const mouse = {
-  x: 0,
-  y: 0
-};
+function loadFileAsText() {
+  const fileToLoad = document.querySelector('.fileToLoad').files[0];
 
-canvas.canvas.addEventListener('mousemove', event => {
-  mouse.x = event.pageX - canvas.canvas.offsetLeft;
-  mouse.y = event.pageY - canvas.canvas.offsetTop;
-});
+  const fileReader = new FileReader();
+  fileReader.onload = function (fileLoadedEvent) {
+    const textFromFileLoaded = fileLoadedEvent.target.result;
 
-ctx.lineWidth = 3;
-ctx.lineJoin = 'round';
-ctx.lineCap = 'round';
-ctx.strokeStyle = '#cc181c';
+    console.log(textFromFileLoaded);
+  };
+  fileReader.readAsText(fileToLoad, 'UTF-8');
+}
 
-canvas.canvas.addEventListener('mousedown', event => {
-  ctx.beginPath();
-  ctx.moveTo(mouse.x, mouse.y);
-
-  canvas.canvas.addEventListener('mousemove', onPaint, false);
-});
-
-canvas.canvas.addEventListener('mouseup', () => {
-  canvas.canvas.removeEventListener('mousemove', onPaint, false);
-});
-
-const onPaint = () => {
-  ctx.lineTo(mouse.x, mouse.y);
-  ctx.stroke();
-};
+document.body.querySelector('.loadText').addEventListener('click', loadFileAsText.bind(this));
