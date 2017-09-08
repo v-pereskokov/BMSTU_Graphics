@@ -1,18 +1,13 @@
 import Canvas from './canvas/canvas';
-import * as constants from './constant/constant';
+import loadFileAsText from './helpers/loadAndPaint';
+import draw from './helpers/draw';
+import imageToFile from './helpers/imageToFile';
 
 const canvas = new Canvas();
 const ctx = canvas.context;
 
-ctx.fillStyle = constants.SQUARE_COLOR;
-ctx.fillRect(0, 0, constants.SQUARE_SIZE, constants.SQUARE_SIZE);
+draw(canvas.canvas, ctx);
 
-canvas.setCallback('click', event => {
-  ctx.fillRect(event.offsetX, event.offsetY, 1, 1);
-
-  ctx.fillStyle = constants.POINT_COLOR;
-
-  for (let i = 0; i < constants.SQUARE_SIZE; ++i) {
-    ctx.fillRect(i, i, 1, 1);
-  }
-});
+document.querySelector('.saveToFile').addEventListener('click', imageToFile.bind(this, canvas.canvas, ctx));
+document.querySelector('.loadText')
+  .addEventListener('click', loadFileAsText.bind(this, canvas.canvas, ctx));

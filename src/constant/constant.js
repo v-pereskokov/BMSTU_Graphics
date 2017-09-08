@@ -1,9 +1,11 @@
-const SQUARE_SIZE = 70;
+const SQUARE_SIZE = 100;
+const PIXEL_SIZE = 1;
 const SQUARE_COLOR = '#00aa00';
 const POINT_COLOR = '#000000';
 
 export {
   SQUARE_SIZE,
+  PIXEL_SIZE,
   SQUARE_COLOR,
   POINT_COLOR
 };
