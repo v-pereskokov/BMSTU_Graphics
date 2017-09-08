@@ -1,7 +1,7 @@
-const resultArray = [];
+import * as constants from '../constant/constant';
 
 const imageToFile = (canvas, ctx) => {
-  const img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  const img = ctx.getImageData(0, 0, constants.SQUARE_SIZE, constants.SQUARE_SIZE).data;
   let textImg = '';
 
   for (let i = 3; i < img.length; i += 4) {

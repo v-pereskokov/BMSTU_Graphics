@@ -6,7 +6,7 @@ import imageToFile from './helpers/imageToFile';
 const canvas = new Canvas();
 const ctx = canvas.context;
 
-draw(canvas, ctx);
+draw(canvas.canvas, ctx);
 
 document.querySelector('.saveToFile').addEventListener('click', imageToFile.bind(this, canvas.canvas, ctx));
 document.querySelector('.loadText')

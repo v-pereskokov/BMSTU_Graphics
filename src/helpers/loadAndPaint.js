@@ -1,3 +1,5 @@
+import * as constants from '../constant/constant';
+
 const loadFileAsText = (canvas, ctx) => {
   const fileToLoad = document.querySelector('.fileToLoad').files[0];
   const fileReader = new FileReader();
@@ -17,7 +19,7 @@ const loadFileAsText = (canvas, ctx) => {
 };
 
 const paint = (ctx, x, y) => {
-  ctx.fillRect(x, y, 1, 1);
+  ctx.fillRect(x, y, constants.PIXEL_SIZE, constants.PIXEL_SIZE);
 };
 
 export default loadFileAsText;

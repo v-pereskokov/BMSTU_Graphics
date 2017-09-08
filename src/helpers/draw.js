@@ -1,3 +1,4 @@
+import * as constants from '../constant/constant';
 
 const mouse = {
   x: 0,
@@ -5,31 +6,29 @@ const mouse = {
 };
 
 const draw = (canvas, ctx) => {
-  canvas.canvas.addEventListener('mousemove', event => {
-    mouse.x = event.pageX - canvas.canvas.offsetLeft;
-    mouse.y = event.pageY - canvas.canvas.offsetTop;
+  canvas.addEventListener('mousemove', event => {
+    mouse.x = event.pageX - canvas.offsetLeft;
+    mouse.y = event.pageY - canvas.offsetTop;
   });
 
   ctx.lineWidth = 3;
-  ctx.lineJoin = 'round';
-  ctx.lineCap = 'round';
-  ctx.strokeStyle = '#000000';
+  ctx.strokeStyle = constants.POINT_COLOR;
 
-  canvas.canvas.addEventListener('mousedown', event => {
+  canvas.addEventListener('mousedown', event => {
     ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
 
-    canvas.canvas.addEventListener('mousemove', onPaint, false);
+    canvas.addEventListener('mousemove', onPaint.bind(this, ctx));
   });
 
-  canvas.canvas.addEventListener('mouseup', () => {
-    canvas.canvas.removeEventListener('mousemove', onPaint, false);
+  canvas.addEventListener('mouseup', () => {
+    canvas.removeEventListener('mousemove', onPaint.bind(this, ctx));
   });
+};
 
-  const onPaint = () => {
-    ctx.lineTo(mouse.x, mouse.y);
-    ctx.stroke();
-  };
+const onPaint = (ctx) => {
+  ctx.lineTo(mouse.x, mouse.y);
+  ctx.stroke();
 };
 
 export default draw;
