@@ -13,7 +13,7 @@
 	<tr>
 		<td>Filename to Save As:</td>
 		<td><input id="inputFileNameToSaveAs"></input></td>
-		<td><button onclick="saveTextAsFile()">Save Text to File</button></td>
+		<td><button class='saveToFile'>Save Img to File</button></td>
 	</tr>
 	<tr>
 		<td>Select a File to Load:</td>
@@ -27,55 +27,5 @@
 <canvas class='picture' width='100' height='100'></canvas>
 
 <script src='built/bundle.js'></script>
-<script type='text/javascript'>
-
-  function saveTextAsFile()
-  {
-    var textToWrite = document.getElementById("inputTextToSave").value;
-    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
-    var fileNameToSaveAs ="123";// document.getElementById("inputFileNameToSaveAs").value;
-
-    var downloadLink = document.createElement("a");
-    downloadLink.download = fileNameToSaveAs;
-    downloadLink.innerHTML = "Download File";
-    if (window.webkitURL != null)
-    {
-      // Chrome allows the link to be clicked
-      // without actually adding it to the DOM.
-      downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-    }
-    else
-    {
-      // Firefox requires the link to be added to the DOM
-      // before it can be clicked.
-      downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-      downloadLink.onclick = destroyClickedElement;
-      downloadLink.style.display = "none";
-      document.body.appendChild(downloadLink);
-    }
-
-    downloadLink.click();
-  }
-
-  function destroyClickedElement(event)
-  {
-    document.body.removeChild(event.target);
-  }
-
-  function loadFileAsText()
-  {
-    var fileToLoad = document.getElementById("fileToLoad").files[0];
-
-    var fileReader = new FileReader();
-    fileReader.onload = function(fileLoadedEvent)
-    {
-      var textFromFileLoaded = fileLoadedEvent.target.result;
-      document.getElementById("inputTextToSave").value = textFromFileLoaded;
-    };
-    fileReader.readAsText(fileToLoad, "UTF-8");
-  }
-
-</script>
 </body>
 </html>
-

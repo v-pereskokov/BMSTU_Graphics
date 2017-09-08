@@ -6,9 +6,19 @@ const loadFileAsText = (callback) => {
     const textFromFileLoaded = fileLoadedEvent.target.result;
     const isPaintArray = textFromFileLoaded.split('');
 
-    for (let i in isPaintArray) {
-      if (+isPaintArray[i] === 1) {
-        callback(i, i);
+    const arrayArray = [[]];
+
+    for (let i = 0; i < 100; ++i) {
+      for (let j = 0; j < 100; ++j) {
+        arrayArray[i].push(isPaintArray[j]);
+      }
+    }
+
+    for (let i = 0; i < 100; ++i) {
+      for (let j = 0; j < 100; ++j) {
+        if (+arrayArray[i][j] === 1) {
+          callback(i, j);
+        }
       }
     }
   });
