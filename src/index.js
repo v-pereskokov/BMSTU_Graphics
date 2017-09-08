@@ -9,15 +9,11 @@ const loadFileAsText = () => {
 
   fileReader.addEventListener('load', fileLoadedEvent => {
     const textFromFileLoaded = fileLoadedEvent.target.result;
-
     const isPaintArray = textFromFileLoaded.split('');
-
-    console.log(isPaintArray);
 
     for (let i in isPaintArray) {
       if (+isPaintArray[i] === 1) {
         paint(i, i);
-        console.log('here');
       }
     }
   });
