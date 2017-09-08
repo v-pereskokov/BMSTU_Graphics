@@ -7,12 +7,33 @@ const ctx = canvas.context;
 ctx.fillStyle = constants.SQUARE_COLOR;
 ctx.fillRect(0, 0, constants.SQUARE_SIZE, constants.SQUARE_SIZE);
 
-canvas.setCallback('click', event => {
-  ctx.fillRect(event.offsetX, event.offsetY, 1, 1);
+const mouse = {
+  x: 0,
+  y: 0
+};
 
-  ctx.fillStyle = constants.POINT_COLOR;
-
-  for (let i = 0; i < constants.SQUARE_SIZE; ++i) {
-    ctx.fillRect(i, i, 1, 1);
-  }
+canvas.canvas.addEventListener('mousemove', event => {
+  mouse.x = event.pageX - canvas.canvas.offsetLeft;
+  mouse.y = event.pageY - canvas.canvas.offsetTop;
 });
+
+ctx.lineWidth = 3;
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.strokeStyle = '#cc181c';
+
+canvas.canvas.addEventListener('mousedown', event => {
+  ctx.beginPath();
+  ctx.moveTo(mouse.x, mouse.y);
+
+  canvas.canvas.addEventListener('mousemove', onPaint, false);
+});
+
+canvas.canvas.addEventListener('mouseup', () => {
+  canvas.canvas.removeEventListener('mousemove', onPaint, false);
+});
+
+const onPaint = () => {
+  ctx.lineTo(mouse.x, mouse.y);
+  ctx.stroke();
+};
