@@ -1,22 +1,32 @@
 import Canvas from './canvas/canvas';
-import * as constants from './constant/constant';
 
 const canvas = new Canvas();
 const ctx = canvas.context;
 
-ctx.fillStyle = constants.SQUARE_COLOR;
-ctx.fillRect(0, 0, constants.SQUARE_SIZE, constants.SQUARE_SIZE);
-
-function loadFileAsText() {
+const loadFileAsText = () => {
   const fileToLoad = document.querySelector('.fileToLoad').files[0];
-
   const fileReader = new FileReader();
-  fileReader.onload = function (fileLoadedEvent) {
+
+  fileReader.addEventListener('load', fileLoadedEvent => {
     const textFromFileLoaded = fileLoadedEvent.target.result;
 
-    console.log(textFromFileLoaded);
-  };
+    const isPaintArray = textFromFileLoaded.split('');
+
+    console.log(isPaintArray);
+
+    for (let i in isPaintArray) {
+      if (+isPaintArray[i] === 1) {
+        paint(i, i);
+        console.log('here');
+      }
+    }
+  });
+
   fileReader.readAsText(fileToLoad, 'UTF-8');
-}
+};
+
+const paint = (x, y) => {
+  ctx.fillRect(x, y, 1, 1);
+};
 
 document.body.querySelector('.loadText').addEventListener('click', loadFileAsText.bind(this));
