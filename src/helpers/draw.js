@@ -5,10 +5,16 @@ const mouse = {
   y: 0
 };
 
+let isPaint = false;
+
 const draw = (canvas, ctx) => {
   canvas.addEventListener('mousemove', event => {
     mouse.x = event.pageX - canvas.offsetLeft;
     mouse.y = event.pageY - canvas.offsetTop;
+
+    if (isPaint) {
+      onPaint(ctx);
+    }
   });
 
   ctx.lineWidth = 3;
@@ -18,11 +24,11 @@ const draw = (canvas, ctx) => {
     ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
 
-    canvas.addEventListener('mousemove', onPaint.bind(this, ctx));
+    isPaint = true;
   });
 
   canvas.addEventListener('mouseup', () => {
-    canvas.removeEventListener('mousemove', onPaint.bind(this, ctx));
+    isPaint = false;
   });
 };
 
