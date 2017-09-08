@@ -1,23 +1,14 @@
 const resultArray = [];
 
-const imageToFile = (ctx) => {
-  let pixel = null;
+const imageToFile = (canvas, ctx) => {
+  const img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  let textImg = '';
 
-  for (let i = 0; i < 100; ++i) {
-    for (let j = 0; j < 100; ++j) {
-      pixel = ctx.getImageData(i, j, 1, 1).data;
-
-      if (+pixel[0] === 0 && +pixel[1] === 0 && +pixel[2] === 0) {
-        pushToResult(true);
-      } else {
-        pushToResult(false);
-      }
-    }
+  for (let i = 3; i < img.length; i += 4) {
+    textImg += img[i] ? '1' : '0';
   }
 
-  const resultString = resultArray.join('');
-
-  const textFile = new Blob([resultString], {type: 'text/plain'});
+  const textFile = new Blob([textImg], {type: 'text/plain'});
   const defaultFileName = 'top.txt';
 
   const downloadLink = document.createElement('a');
@@ -41,10 +32,6 @@ const imageToFile = (ctx) => {
 
 const destroyClickedElement = event => {
   document.body.removeChild(event.target);
-};
-
-const pushToResult = (isPaint) => {
-  resultArray.push(isPaint ? 1 : 0);
 };
 
 export default imageToFile;

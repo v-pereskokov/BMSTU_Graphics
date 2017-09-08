@@ -13,7 +13,7 @@ const draw = (canvas, ctx) => {
   ctx.lineWidth = 3;
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
-  ctx.strokeStyle = '#cc181c';
+  ctx.strokeStyle = '#000000';
 
   canvas.canvas.addEventListener('mousedown', event => {
     ctx.beginPath();

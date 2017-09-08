@@ -1,4 +1,4 @@
-const loadFileAsText = (callback) => {
+const loadFileAsText = (canvas, ctx) => {
   const fileToLoad = document.querySelector('.fileToLoad').files[0];
   const fileReader = new FileReader();
 
@@ -6,24 +6,18 @@ const loadFileAsText = (callback) => {
     const textFromFileLoaded = fileLoadedEvent.target.result;
     const isPaintArray = textFromFileLoaded.split('');
 
-    const arrayArray = [[]];
-
-    for (let i = 0; i < 100; ++i) {
-      for (let j = 0; j < 100; ++j) {
-        arrayArray[i].push(isPaintArray[j]);
-      }
-    }
-
-    for (let i = 0; i < 100; ++i) {
-      for (let j = 0; j < 100; ++j) {
-        if (+arrayArray[i][j] === 1) {
-          callback(i, j);
-        }
+    for (let i in isPaintArray) {
+      if (+isPaintArray[i]) {
+        paint(ctx, i % canvas.width, i / canvas.width);
       }
     }
   });
 
   fileReader.readAsText(fileToLoad, 'UTF-8');
+};
+
+const paint = (ctx, x, y) => {
+  ctx.fillRect(x, y, 1, 1);
 };
 
 export default loadFileAsText;
