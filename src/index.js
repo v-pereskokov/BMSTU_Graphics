@@ -1,5 +1,6 @@
 import Canvas from './canvas/canvas';
 import Sobel from './sobel/sobel';
+import * as constansts from './constant/constant';
 
 const toCanvases = (image) => {
   const plainCanvas = new Canvas('picture', '2d', {
@@ -35,4 +36,11 @@ document.querySelector('.file').addEventListener('change', event => {
   });
 
   reader.readAsDataURL(event.target.files[0])
+});
+
+const startImage = new Image();
+startImage.src = constansts.IMAGE_URL;
+
+startImage.addEventListener('load', () => {
+  toCanvases(startImage);
 });
