@@ -12,6 +12,21 @@ export default class Sobel {
     this._sobelData = [];
   }
 
+  get image() {
+    return this._toImage(this._transform());
+  }
+
+  _toImage(clampedArray) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    const imageData = context.createImageData(this._width, this._height);
+
+    this._image.data.set(clampedArray);
+
+    return imageData;
+  }
+
   _transform() {
     let pixelAt = this._getPixelAtBind(this._data);
 
