@@ -1,6 +1,5 @@
 import Canvas from './canvas/canvas';
 import Sobel from './sobel/sobel';
-import * as constants from './constant/constant';
 
 const toCanvases = (image) => {
   const plainCanvas = new Canvas('picture', '2d', {
