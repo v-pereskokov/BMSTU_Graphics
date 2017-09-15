@@ -16,4 +16,13 @@ image.addEventListener('load', () => {
 });
 
 const sobel = new Sobel(ctx.getImageData(0, 0, constants.WIDTH, constants.HEIGHT), constants.WIDTH, constants.HEIGHT);
-sobel.image;
+
+const canvasSobel = new Canvas('sobel', '2d', {
+  width: constants.WIDTH,
+  height: constants.HEIGHT
+});
+
+const top = sobel.image;
+console.log(top);
+
+canvasSobel.context.putImageData(top, 0, 0);
