@@ -22,6 +22,11 @@ export default class Canvas {
     this.canvas.addEventListener(type, callback);
   }
 
+  getPixel() {
+    this._context.drawImage(this._canvas, 0, 0);
+    return this._context.getImageData(0, 0, this._canvas.width, this._canvas.height);
+  }
+
   _setupCanvas() {
     this.canvas.width = this._width;
     this.canvas.height = this._height;

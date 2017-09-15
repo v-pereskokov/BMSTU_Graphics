@@ -15,7 +15,7 @@ image.addEventListener('load', () => {
   ctx.drawImage(image, 0, 0);
   const sobel = new Sobel();
 
-  const pixels = sobel.getPixel(canvas.canvas);
+  const pixels = canvas.getPixel();
   const completo = sobel.top(pixels);
 
   const canvas2 = new Canvas('sobel', '2d', {

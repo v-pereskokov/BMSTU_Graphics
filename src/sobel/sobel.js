@@ -98,10 +98,4 @@ export default class Sobel {
 
     return context.createImageData(w, h);
   }
-
-  getPixel(img) {
-    var context = img.getContext('2d');
-    context.drawImage(img, 0, 0);
-    return context.getImageData(0, 0, img.width, img.height);
-  }
 }
