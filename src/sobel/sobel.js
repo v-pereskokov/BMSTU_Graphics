@@ -3,9 +3,16 @@ import * as constants from '../constant/constant';
 export default class Sobel {
   constructor(image) {
     this._image = image;
+    this._result = null;
+
+    this._transform();
   }
 
-  top() {
+  get image() {
+    return this._result;
+  }
+
+  _transform() {
     let pixelsPB = this.escalaCinza(this._image);
     let horizontal = this.convolucao(pixelsPB, constants.KERNEL_Y);
     let vertical = this.convolucao(pixelsPB, constants.KERNEL_X);
@@ -22,7 +29,7 @@ export default class Sobel {
       img.data[i + 3] = 255;
     }
 
-    return img;
+    this._result = img;
   }
 
   escalaCinza(pixels) {

@@ -14,12 +14,11 @@ image.src = constants.IMAGE_URL;
 image.addEventListener('load', () => {
   ctx.drawImage(image, 0, 0);
   const sobel = new Sobel(canvas.getPixel());
-  const completo = sobel.top();
 
   const canvas2 = new Canvas('sobel', '2d', {
     width: constants.WIDTH,
     height: constants.HEIGHT
   });
 
-  canvas2.context.putImageData(completo, 0, 0);
+  canvas2.context.putImageData(sobel.image, 0, 0);
 });
