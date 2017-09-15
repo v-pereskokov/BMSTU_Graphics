@@ -15,8 +15,8 @@ export default class Sobel {
   _transform() {
     let pixelAt = this._getPixelAtBind(this._data);
 
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
+    for (let y = 0; y < this._height; y++) {
+      for (let x = 0; x < this._width; x++) {
         const r = pixelAt(x, y, 0);
         const g = pixelAt(x, y, 1);
         const b = pixelAt(x, y, 2);
@@ -28,8 +28,8 @@ export default class Sobel {
 
     pixelAt = this._getPixelAtBind(this._grayscaleData);
 
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
+    for (let y = 0; y < this._height; y++) {
+      for (let x = 0; x < this._width; x++) {
         const pixelX = (
           (constants.KERNEL_X[0][0] * pixelAt(x - 1, y - 1)) +
           (constants.KERNEL_X[0][1] * pixelAt(x, y - 1)) +
@@ -67,13 +67,13 @@ export default class Sobel {
     }
 
     clampedArray.toImageData = function () {
-      return Sobel.toImageData(clampedArray, width, height);
+      return Sobel.toImageData(clampedArray, this._width, this._height);
     };
 
     return clampedArray;
   }
 
   _getPixelAtBind(data) {
-    return (x, y, i) => data[((width * y) + x) * 4 + i || 0];
+    return (x, y, i) => data[((this._width * y) + x) * 4 + i || 0];
   }
 }
