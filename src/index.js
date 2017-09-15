@@ -1,13 +1,46 @@
 import Canvas from './canvas/canvas';
-import loadFileAsText from './helpers/loadAndPaint';
-import draw from './helpers/draw';
-import imageToFile from './helpers/imageToFile';
+import Sobel from './sobel/sobel';
+import * as constansts from './constant/constant';
 
-const canvas = new Canvas();
-const ctx = canvas.context;
+const toCanvases = (image) => {
+  const plainCanvas = new Canvas('picture', '2d', {
+    width: image.width,
+    height: image.height
+  });
+  plainCanvas.context.drawImage(image, 0, 0);
 
-draw(canvas.canvas, ctx);
+  const sobel = new Sobel(plainCanvas.getPixel());
 
-document.querySelector('.saveToFile').addEventListener('click', imageToFile.bind(this, canvas.canvas, ctx));
-document.querySelector('.loadText')
-  .addEventListener('click', loadFileAsText.bind(this, canvas.canvas, ctx));
+  const sobelCanvas = new Canvas('sobel', '2d', {
+    width: image.width,
+    height: image.height
+  });
+  sobelCanvas.context.putImageData(sobel.image, 0, 0);
+};
+
+document.querySelector('.file').addEventListener('change', event => {
+  const reader = new FileReader();
+
+  reader.addEventListener('load', event => {
+    const image = new Image();
+
+    image.addEventListener('load', () => {
+      toCanvases(image);
+    });
+
+    image.addEventListener('error', () => {
+      console.log('Can\'t open');
+    });
+
+    image.src = event.target.result
+  });
+
+  reader.readAsDataURL(event.target.files[0])
+});
+
+const startImage = new Image();
+startImage.src = constansts.IMAGE_URL;
+
+startImage.addEventListener('load', () => {
+  toCanvases(startImage);
+});

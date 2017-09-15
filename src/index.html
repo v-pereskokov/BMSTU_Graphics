@@ -7,23 +7,11 @@
 	<link>
 </head>
 <body>
-<table>
-	<tr>
-		<td>Filename to Save As:</td>
-		<td>
-			<button class='saveToFile'>Save Img to File</button>
-		</td>
-	</tr>
-	<tr>
-		<td>Select a File to Load:</td>
-		<td><input type='file' class='fileToLoad'></td>
-		<td>
-			<button class='loadText'>Load Selected File</button>
-		<td>
-	</tr>
-</table>
+<header class='sobel-header'>Sobel filter</header>
+<input type='file' class='file'/>
 
-<canvas class='picture' width='100' height='100'></canvas>
+<canvas class='picture'></canvas>
+<canvas class='sobel'></canvas>
 
 <script src='built/bundle.js'></script>
 </body>
