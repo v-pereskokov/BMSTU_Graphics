@@ -15,5 +15,5 @@ image.addEventListener('load', () => {
   ctx.drawImage(image, 0, 0);
 });
 
-const sobel = new Sobel(canvas.canvas.getImageData(0, 0, canvas.canvas.width, canvas.canvas.height));
+const sobel = new Sobel(ctx.getImageData(0, 0, constants.WIDTH, constants.HEIGHT), constants.WIDTH, constants.HEIGHT);
 sobel.image;
