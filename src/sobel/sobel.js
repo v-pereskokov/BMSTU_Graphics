@@ -1,5 +1,11 @@
 export default class Sobel {
-  constructor(canvas) {
-    this._canvas = canvas;
+  constructor(image, width, height) {
+    this._image = image;
+    this._width = width;
+    this._height = height;
+  }
+
+  getPixelAt() {
+
   }
 }
