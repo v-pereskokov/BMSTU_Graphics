@@ -13,19 +13,9 @@ export default class Sobel {
   }
 
   top(pixels) {
-    var matrizHorizontal =
-      [-1, -2, -1,
-        0, 0, 0,
-        1, 2, 1];
-
-    var matrizVertical =
-      [-1, 0, 1,
-        -2, 0, 2,
-        -1, 0, 1];
-
     var pixelsPB = this.escalaCinza(pixels);
-    var horizontal = this.convolucao(pixelsPB, matrizHorizontal);
-    var vertical = this.convolucao(pixelsPB, matrizVertical);
+    var horizontal = this.convolucao(pixelsPB, constants.KERNEL_Y);
+    var vertical = this.convolucao(pixelsPB, constants.KERNEL_X);
     var img = this.criarImageData(pixels.width, pixels.height);
 
     for (var i = 0; i < img.data.length; i += 4) {
