@@ -13,60 +13,68 @@ export default class Sobel {
   }
 
   _transform() {
-    const horizontal = this._getData(this._image, constants.KERNEL_Y);
-    const vertical = this._getData(this._image, constants.KERNEL_X);
+    const horizontal = this._getData(constants.KERNEL_Y);
+    const vertical = this._getData(constants.KERNEL_X);
     const img = Sobel.createImageData(this._image.width, this._image.height);
 
     for (let i = 0; i < img.data.length; i += 4) {
-      let v = Math.abs(vertical.data[i]);
-      let h = Math.abs(horizontal.data[i]);
+      const absVertical = Math.abs(vertical.data[i]);
+      const absHorizontal = Math.abs(horizontal.data[i]);
+      const sqrt = Math.sqrt(Math.pow(absHorizontal, 2) + Math.pow(absVertical, 2));
 
-      let s = Math.sqrt(Math.pow(h, 2) + Math.pow(v, 2));
-      img.data[i] = s;
-      img.data[i + 1] = s;
-      img.data[i + 2] = s;
+      img.data[i] = sqrt;
+      img.data[i + 1] = sqrt;
+      img.data[i + 2] = sqrt;
       img.data[i + 3] = 255;
     }
 
     this._result = img;
   }
 
-  _getData(pixels, weights) {
-    let side = Math.round(Math.sqrt(weights.length));
-    let halfSide = Math.floor(side / 2);
+  _getData(matrix) {
+    const side = Math.round(Math.sqrt(matrix.length));
+    const halfSide = Math.floor(side / 2);
 
-    let src = pixels.data;
-    let sw = pixels.width;
-    let sh = pixels.height;
+    const src = this._image.data;
+    const sw = this._image.width;
+    const sh = this._image.height;
 
-    let w = sw;
-    let h = sh;
-    let output = {width: w, height: h, data: new Float32Array(w * h * 4)};
-    let dst = output.data;
+    const w = sw;
+    const h = sh;
+    const output = {
+      width: w,
+      height: h,
+      data: new Float32Array(w * h * 4)
+    };
+    const dst = output.data;
 
-    for (let y = 0; y < h; y++) {
-      for (let x = 0; x < w; x++) {
-        let sy = y;
-        let sx = x;
-        let dstOff = (y * w + x) * 4;
-        let r = 0, g = 0, b = 0, a = 0;
+    for (let y = 0; y < h; ++y) {
+      for (let x = 0; x < w; ++x) {
+        const sy = y;
+        const sx = x;
+        const dstOff = (y * w + x) * 4;
+
+        let red = 0;
+        let green = 0;
+        let blue = 0;
 
         for (let cy = 0; cy < side; cy++) {
           for (let cx = 0; cx < side; cx++) {
             let scy = Math.min(sh - 1, Math.max(0, sy + cy - halfSide));
             let scx = Math.min(sw - 1, Math.max(0, sx + cx - halfSide));
+
             let srcOff = (scy * sw + scx) * 4;
-            let wt = weights[cy * side + cx];
-            r += src[srcOff] * wt;
-            g += src[srcOff + 1] * wt;
-            b += src[srcOff + 2] * wt;
-            a += src[srcOff + 3] * wt;
+            let wt = matrix[cy * side + cx];
+
+            red += src[srcOff] * wt;
+            green += src[srcOff + 1] * wt;
+            blue += src[srcOff + 2] * wt;
           }
         }
 
-        dst[dstOff] = r;
-        dst[dstOff + 1] = g;
-        dst[dstOff + 2] = b;
+        dst[dstOff] = red;
+        dst[dstOff + 1] = green;
+        dst[dstOff + 2] = blue;
         dst[dstOff + 3] = 255;
       }
     }
