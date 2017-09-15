@@ -18,6 +18,8 @@ const KERNEL_Y = [
 
 export {
   SQUARE_SIZE,
+  WIDTH,
+  HEIGHT,
   PIXEL_SIZE,
   SQUARE_COLOR,
   POINT_COLOR,

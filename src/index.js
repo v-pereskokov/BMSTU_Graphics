@@ -2,7 +2,10 @@ import Canvas from './canvas/canvas';
 import Sobel from './sobel/sobel';
 import * as constants from './constant/constant';
 
-const canvas = new Canvas();
+const canvas = new Canvas('picture', '2d', {
+  width: constants.WIDTH,
+  height: constants.HEIGHT
+});
 const ctx = canvas.context;
 
 const image = new Image();
