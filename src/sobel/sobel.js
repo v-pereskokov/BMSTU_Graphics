@@ -13,9 +13,8 @@ export default class Sobel {
   }
 
   _transform() {
-    let pixelsPB = this.escalaCinza(this._image);
-    let horizontal = this.convolucao(pixelsPB, constants.KERNEL_Y);
-    let vertical = this.convolucao(pixelsPB, constants.KERNEL_X);
+    let horizontal = this.convolucao(this._image, constants.KERNEL_Y);
+    let vertical = this.convolucao(this._image, constants.KERNEL_X);
     const img = Sobel.createImageData(this._image.width, this._image.height);
 
     for (let i = 0; i < img.data.length; i += 4) {
@@ -30,20 +29,6 @@ export default class Sobel {
     }
 
     this._result = img;
-  }
-
-  escalaCinza(pixels) {
-    let d = pixels.data;
-
-    for (let i = 0; i < d.length; i += 4) {
-      let r = d[i];
-      let g = d[i + 1];
-      let b = d[i + 2];
-      let v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-      d[i] = d[i + 1] = d[i + 2] = v;
-    }
-
-    return pixels;
   }
 
   convolucao(pixels, weights) {
