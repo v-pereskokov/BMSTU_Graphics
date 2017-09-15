@@ -1,22 +1,15 @@
 import * as constants from '../constant/constant';
 
 export default class Sobel {
-  constructor(image = '', width = 1, height = 2) {
+  constructor(image) {
     this._image = image;
-    this._data = this._image.data;
-
-    this._width = width;
-    this._height = height;
-
-    this._grayscaleData = [];
-    this._sobelData = [];
   }
 
-  top(pixels) {
-    let pixelsPB = this.escalaCinza(pixels);
+  top() {
+    let pixelsPB = this.escalaCinza(this._image);
     let horizontal = this.convolucao(pixelsPB, constants.KERNEL_Y);
     let vertical = this.convolucao(pixelsPB, constants.KERNEL_X);
-    let img = Sobel.createImageData(pixels.width, pixels.height);
+    const img = Sobel.createImageData(this._image.width, this._image.height);
 
     for (let i = 0; i < img.data.length; i += 4) {
       let v = Math.abs(vertical.data[i]);
@@ -92,10 +85,10 @@ export default class Sobel {
     return output;
   }
 
-  static createImageData(w, h) {
+  static createImageData(width, height) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
 
-    return context.createImageData(w, h);
+    return context.createImageData(width, height);
   }
 }

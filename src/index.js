@@ -13,10 +13,8 @@ image.src = constants.IMAGE_URL;
 
 image.addEventListener('load', () => {
   ctx.drawImage(image, 0, 0);
-  const sobel = new Sobel();
-
-  const pixels = canvas.getPixel();
-  const completo = sobel.top(pixels);
+  const sobel = new Sobel(canvas.getPixel());
+  const completo = sobel.top();
 
   const canvas2 = new Canvas('sobel', '2d', {
     width: constants.WIDTH,
