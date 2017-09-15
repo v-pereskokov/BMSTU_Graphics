@@ -13,8 +13,8 @@ export default class Sobel {
   }
 
   _transform() {
-    let horizontal = this.convolucao(this._image, constants.KERNEL_Y);
-    let vertical = this.convolucao(this._image, constants.KERNEL_X);
+    const horizontal = this._getData(this._image, constants.KERNEL_Y);
+    const vertical = this._getData(this._image, constants.KERNEL_X);
     const img = Sobel.createImageData(this._image.width, this._image.height);
 
     for (let i = 0; i < img.data.length; i += 4) {
@@ -31,10 +31,7 @@ export default class Sobel {
     this._result = img;
   }
 
-  convolucao(pixels, weights) {
-    if (!window.Float32Array)
-      Float32Array = Array;
-
+  _getData(pixels, weights) {
     let side = Math.round(Math.sqrt(weights.length));
     let halfSide = Math.floor(side / 2);
 
