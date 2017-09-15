@@ -100,17 +100,7 @@ export default class Sobel {
   }
 
   getPixel(img) {
-    var canvas;
-
-    if (img.getContext) {
-      canvas = img;
-    } else {
-      canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-    }
-
-    var context = canvas.getContext('2d');
+    var context = img.getContext('2d');
     context.drawImage(img, 0, 0);
     return context.getImageData(0, 0, img.width, img.height);
   }
