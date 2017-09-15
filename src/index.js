@@ -32,10 +32,10 @@ document.querySelector('.file').addEventListener('change', event => {
       console.log('Can\'t open');
     });
 
-    image.src = event.target.result
+    image.src = event.target.result;
   });
 
-  reader.readAsDataURL(event.target.files[0])
+  reader.readAsDataURL(event.target.files[0]);
 });
 
 const startImage = new Image();
