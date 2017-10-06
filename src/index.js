@@ -3,14 +3,6 @@ import * as constansts from './constant/constant';
 
 const drawButton = document.querySelector('.draw');
 
-drawButton.addEventListener('click', () => {
-  let x0 = document.getElementsByName('circle-x0')[0].value;
-  let y0 = document.getElementsByName('circle-y0')[0].value;
-  let r = document.getElementsByName('circle-r')[0].value;
-
-  console.log(x0, y0, r);
-});
-
 const canvas = new Canvas('picture', '2d', {
   width: constansts.WIDTH,
   height: constansts.HEIGHT
@@ -19,94 +11,45 @@ const ctx = canvas.context;
 
 ctx.fillStyle = constansts.SQUARE_COLOR;
 
-let current = 0;
-let points = [];
-
 ctx.lineWidth = 1;
-ctx.lineJoin = 'round';
-ctx.lineCap = 'round';
 ctx.strokeStyle = '#cc181c';
 
-function drawBrez(context, Xd, Yd, Xf, Yf) {
-  let Dx, Dy, Dx2, Dy2, Dxy, S;
-  let Xinc, Yinc, X, Y;
+drawButton.addEventListener('click', () => {
+  const x0 = document.getElementsByName('circle-x0')[0].value;
+  const y0 = document.getElementsByName('circle-y0')[0].value;
+  const r = document.getElementsByName('circle-r')[0].value;
 
-  if (Xd < Xf) Xinc = 1; else Xinc = -1;
-  if (Yd < Yf) Yinc = 1; else Yinc = -1;
+  drawCircle(+x0, +y0, +r);
+});
 
-  Dx = Math.abs(Xd - Xf);
-  Dy = Math.abs(Yd - Yf);
+function drawCircle(x0, y0, r) {
+  let Z = 0;
+  let x = 0;
+  let y = r;
 
-  Dx2 = Dx + Dx;
-  Dy2 = Dy + Dy;
+  while (x <= y) {
+    setPixel(x0 - x, y0 - y);
+    setPixel(x0 - x, y0 + y);
 
-  X = Xd;
-  Y = Yd;
+    setPixel(x0 + x, y0 - y);
+    setPixel(x0 + x, y0 + y);
 
-  context.moveTo(X, Y);
-  if (Dx > Dy) {
-    S = Dy2 - Dx;
-    Dxy = Dy2 - Dx2;
-    for (let i = 0; i < Dx; i++) {
-      if (S >= 0) {
-        Y = Y + Yinc;
-        S = S + Dxy;
-      } else {
-        S = S + Dy2;
-      }
+    setPixel(x0 - y, y0 - x);
+    setPixel(x0 - y, y0 + x);
 
-      X = X + Xinc;
-      context.lineTo(X, Y);
+    setPixel(x0 + y, y0 - x);
+    setPixel(x0 + y, y0 + x);
+
+    if (Z > 0) {
+      --y;
+      Z -= 2 * y;
     }
-  } else {
-    S = Dx2 - Dy;
-    Dxy = Dx2 - Dy2;
 
-    for (let i = 0; i < Dy; i++) {
-      if (S >= 0) {
-        X = X + Xinc;
-        S = S + Dxy;
-      } else {
-        S = S + Dx2;
-      }
-      Y = Y + Yinc;
-      context.lineTo(X, Y);
-    }
+    ++x;
+    Z += 2 * x;
   }
-
-  context.stroke();
 }
 
-canvas.canvas.addEventListener('mousedown', event => {
-  points.push({
-    x: event.pageX - canvas.canvas.offsetLeft,
-    y: event.pageY - canvas.canvas.offsetTop
-  });
-
-  console.log(points);
-
-  ++current;
-});
-
-canvas.canvas.addEventListener('mouseup', () => {
-  if (current === 4) {
-    ctx.clearRect(0, 0, constansts.WIDTH, constansts.HEIGHT);
-    points = [];
-    current = 0;
-  }
-
-  if (current !== 0 && current !== 1) {
-    ctx.beginPath();
-
-    drawBrez(ctx, points[current - 2].x, points[current - 2].y, points[current - 1].x, points[current - 1].y);
-  }
-
-  if (current === 3) {
-    ctx.beginPath();
-
-    ctx.moveTo(points[current - 1].x, points[current - 1].y);
-    ctx.lineTo(points[0].x, points[0].y);
-
-    ctx.stroke();
-  }
-});
+function setPixel(x, y) {
+  ctx.fillRect(x, y, 1, 1);
+}
