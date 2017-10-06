@@ -1,6 +1,16 @@
 import Canvas from './canvas/canvas';
 import * as constansts from './constant/constant';
 
+const drawButton = document.querySelector('.draw');
+
+drawButton.addEventListener('click', () => {
+  let x0 = document.getElementsByName('circle-x0')[0].value;
+  let y0 = document.getElementsByName('circle-y0')[0].value;
+  let r = document.getElementsByName('circle-r')[0].value;
+
+  console.log(x0, y0, r);
+});
+
 const canvas = new Canvas('picture', '2d', {
   width: constansts.WIDTH,
   height: constansts.HEIGHT
