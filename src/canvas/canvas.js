@@ -1,5 +1,5 @@
 export default class Canvas {
-  constructor(className = 'picture', context = '2d', {width, height}) {
+  constructor(className = 'picture', context = '2d', {width = 0, height = 0}) {
     this._canvas = document.querySelector(`.${className}`);
     this._context = this.canvas.getContext(context);
 
