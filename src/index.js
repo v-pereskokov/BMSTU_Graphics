@@ -1,12 +1,10 @@
-import Canvas from './canvas/canvas';
-import * as constansts from './constant/constant';
-
 const canvas = document.querySelector('.picture');
 const ctx = canvas.getContext('2d');
 
 ctx.globalCompositeOperation = 'source-over';
 
 const stack = [];
+const graph = [];
 
 const ax = 200;
 const ay = 200;
@@ -19,22 +17,39 @@ const dy = 500;
 const ex = 100;
 const ey = 300;
 
-const xmin = ax;
-const xmax = cx;
-const ymin = ay;
-const ymax = cy;
+function scalar(p1, p2) {
+  return p1.x * p2.x + p1.y * p2.y;
+}
 
+function getNormal(line, point) {
+  let delX = line.first.x - line.second.x;
+  let delY = line.first.y - line.second.y;
 
-function cyrcusBeck(stack, line = {
-  first: {
-    x: 0,
-    y: 0
-  },
-  second: {
-    x: 0,
-    y: 0
+  let n = {
+    x: delX,
+    y: delY
+  };
+
+  let v = {
+    x: point.x - line.first.x,
+    y: point.y - line.first.y
+  };
+
+  let dot = scalar(v, n);
+  if (dot === 0) {
+    console.log('Error - 3 collinear points along polygon\n');
+    return;
   }
-}) {
+
+  if (dot < 0) {
+    n.x *= -1;
+    n.y *= -1;
+  }
+
+  return n;
+}
+
+function cyrcusBeck(stack, line) {
   let delX = line.first.x - line.second.x;
   let delY = line.first.y - line.second.y;
 
@@ -61,7 +76,7 @@ function cyrcusBeck(stack, line = {
       second: point2
     };
 
-    let N = getInsideNormal(line2, boundaryPoint);
+    let N = getNormal(line2, boundaryPoint);
 
     let w = {
       x: line.first.x - point.x,
@@ -83,7 +98,7 @@ function cyrcusBeck(stack, line = {
     if (den > 0) {
       tEnter = Math.max(tEnter, t);
     } else {
-      tLeave = Math.min(tLeave, t);
+      tLeave = Math.min(tLeave, t) || tLeave;
     }
 
     boundaryPoint = point;
@@ -102,7 +117,12 @@ function cyrcusBeck(stack, line = {
       x: line.first.x + delX * tLeave,
       y: line.first.y + delY * tLeave
     }
-  }
+  };
+}
+
+
+function cyrusBeck() {
+  
 }
 
 const drawLine = (x0, y0, x1, y1) => {
@@ -127,12 +147,12 @@ const drawTestLine = (x0, y0, x1, y1, color) => {
   ctx.stroke();
 };
 
-function deleteLine(start, end) {
+function deleteLine(x0, y0, x1, y1) {
   ctx.beginPath();
-  ctx.moveTo(start[0], start[1]);
-  ctx.lineTo(end[0], end[1]);
+  ctx.moveTo(x0, y0);
+  ctx.lineTo(x1, y1);
 
-  ctx.strokeStyle = '#ffffff';
+  ctx.strokeStyle = '#4271ff';
 
   ctx.lineWidth = 2;
   ctx.stroke();
@@ -144,18 +164,32 @@ drawLine(cx, cy, dx, dy);
 drawLine(dx, dy, ex, ey);
 drawLine(ex, ey, ax, ay);
 
-drawTestLine(300, 300, 400, 400, 'ff0211');
+graph.push(ax, ay);
+graph.push(bx, by);
+graph.push(cx, cy);
+graph.push(dx, dy);
+graph.push(ex, ey);
+
 drawTestLine(220, 100, 300, 150, 'ff0211');
+drawTestLine(130, 100, 400, 400, 'ff0211');
 drawTestLine(150, 300, 300, 280, 'ff0211');
 drawTestLine(150, 250, 550, 400, 'ff0211');
 
 document.addEventListener('keydown', event => {
   if (+event.keyCode === 39) {
-    let endPoints = [];
-    if (stack.length > 0) {
-      endPoints = stack.pop();
-    }
+    for (let i = 0; i < stack.length; ++i) {
+      let line = cyrcusBeck(graph, {
+        first: {
+          x: stack[i][0][0],
+          y: stack[i][0][1]
+        },
+        second: {
+          x: stack[i][1][0],
+          y: stack[i][1][1]
+        },
+      });
 
-    clip(endPoints);
+      deleteLine(line.first.x, line.first.y, line.second.x, line.second.y);
+    }
   }
 });
