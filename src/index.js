@@ -1,195 +1,77 @@
-const canvas = document.querySelector('.picture');
-const ctx = canvas.getContext('2d');
+const canvasElem = document.createElement('canvas');
+canvasElem.id = 'canvas';
+canvasElem.width = 600;
+canvasElem.height = 600;
+canvasElem.style.margin = 'auto';
+canvasElem.style.display = 'flex';
 
-ctx.globalCompositeOperation = 'source-over';
+document.body.appendChild(canvasElem);
 
-const stack = [];
-const graph = [];
+const canvas = canvasElem.getContext('2d');
 
-const ax = 200;
-const ay = 200;
-const bx = 600;
-const by = 300;
-const cx = 500;
-const cy = 500;
-const dx = 200;
-const dy = 500;
-const ex = 100;
-const ey = 300;
+const canvasX = canvasElem.width;
+const canvasY = canvasElem.height;
 
-function scalar(p1, p2) {
-  return p1.x * p2.x + p1.y * p2.y;
+canvasElem.strokeStyle = 'green';
+
+canvas.arc(100, 75, 50, 0, 2 * Math.PI);
+canvas.stroke();
+
+const plot = (x, y, c) => {
+  if (isFinite(x) && isFinite(y)) {
+    const color = {
+      r: plot.color.r,
+      g: plot.color.g,
+      b: plot.color.b,
+      a: plot.color.a * c
+    };
+
+    setPixel(x, y, color);
+  }
+};
+
+function setPixel(x, y, c = 1) {
+  const p = canvas.createImageData(1, 1);
+
+  p.data[0] = c.r;
+  p.data[1] = c.g;
+  p.data[2] = c.b;
+  p.data[3] = c.a;
+
+  const data = canvas.getImageData(x, y, 1, 1).data;
+  if (data[3] <= p.data[3]) {
+    canvas.putImageData(p, x, y);
+  }
 }
 
-function getNormal(line, point) {
-  let delX = line.first.x - line.second.x;
-  let delY = line.first.y - line.second.y;
-
-  let n = {
-    x: delX,
-    y: delY
-  };
-
-  let v = {
-    x: point.x - line.first.x,
-    y: point.y - line.first.y
-  };
-
-  let dot = scalar(v, n);
-  if (dot === 0) {
-    console.log('Error - 3 collinear points along polygon\n');
+function fill(x, y, color) {
+  if (!(x >= 0 && y >= 0 &&
+      x < canvasX && y < canvasY)) {
     return;
   }
 
-  if (dot < 0) {
-    n.x *= -1;
-    n.y *= -1;
-  }
+  const startColor = canvas.getImageData(x, y, 1, 1).data;
+  plot.color = color;
+  const q = [[x, y]];
+  for (let i = 0; i < q.length; ++i) {
+    let x = q[i][0], y = q[i][1];
+    const data = canvas.getImageData(x, y, 1, 1).data;
 
-  return n;
-}
+    if (data[0] === startColor[0] && data[1] === startColor[1] &&
+      data[2] === startColor[2] && data[3] === startColor[3]) {
 
-function cyrcusBeck(stack, line) {
-  let delX = line.first.x - line.second.x;
-  let delY = line.first.y - line.second.y;
+      plot(x, y, 1);
 
-  let pointDel = {
-    x: delX,
-    y: delY
-  };
+      const s = q.length;
 
-  let boundaryPoint = stack[2];
-
-  let tEnter = 0;
-  let tLeave = 1;
-
-  for (let i = 0; i < stack.length; ++i) {
-    if (i === stack.length - 2) {
-      break;
-    }
-
-    let point = stack[i];
-    let point2 = stack[i + 1];
-
-    let line2 = {
-      first: point,
-      second: point2
-    };
-
-    let N = getNormal(line2, boundaryPoint);
-
-    let w = {
-      x: line.first.x - point.x,
-      y: line.first.y - point.y
-    };
-
-    let num = scalar(w, N);
-    let den = scalar(pointDel, N);
-
-    if (den === 0) {
-      if (num < 0) {
-        return;
-      }
-
-      continue;
-    }
-
-    let t = -num / den;
-    if (den > 0) {
-      tEnter = Math.max(tEnter, t);
-    } else {
-      tLeave = Math.min(tLeave, t) || tLeave;
-    }
-
-    boundaryPoint = point;
-  }
-
-  if (tEnter > tLeave) {
-    return;
-  }
-
-  return {
-    first: {
-      x: line.first.x + delX * tEnter,
-      y: line.first.y + delY * tEnter
-    },
-    second: {
-      x: line.first.x + delX * tLeave,
-      y: line.first.y + delY * tLeave
-    }
-  };
-}
-
-
-function cyrusBeck() {
-  
-}
-
-const drawLine = (x0, y0, x1, y1) => {
-  ctx.beginPath();
-  ctx.moveTo(x0, y0);
-  ctx.lineTo(x1, y1);
-  ctx.stroke();
-};
-
-const drawTestLine = (x0, y0, x1, y1, color) => {
-  let start = [x0, y0];
-  let end = [x1, y1];
-
-  stack.push([start, end]);
-
-  ctx.beginPath();
-  ctx.moveTo(start[0], start[1]);
-  ctx.lineTo(end[0], end[1]);
-
-  ctx.strokeStyle = `#${color}`;
-  ctx.lineWdith = 1;
-  ctx.stroke();
-};
-
-function deleteLine(x0, y0, x1, y1) {
-  ctx.beginPath();
-  ctx.moveTo(x0, y0);
-  ctx.lineTo(x1, y1);
-
-  ctx.strokeStyle = '#4271ff';
-
-  ctx.lineWidth = 2;
-  ctx.stroke();
-}
-
-drawLine(ax, ay, bx, by);
-drawLine(bx, by, cx, cy);
-drawLine(cx, cy, dx, dy);
-drawLine(dx, dy, ex, ey);
-drawLine(ex, ey, ax, ay);
-
-graph.push(ax, ay);
-graph.push(bx, by);
-graph.push(cx, cy);
-graph.push(dx, dy);
-graph.push(ex, ey);
-
-drawTestLine(220, 100, 300, 150, 'ff0211');
-drawTestLine(130, 100, 400, 400, 'ff0211');
-drawTestLine(150, 300, 300, 280, 'ff0211');
-drawTestLine(150, 250, 550, 400, 'ff0211');
-
-document.addEventListener('keydown', event => {
-  if (+event.keyCode === 39) {
-    for (let i = 0; i < stack.length; ++i) {
-      let line = cyrcusBeck(graph, {
-        first: {
-          x: stack[i][0][0],
-          y: stack[i][0][1]
-        },
-        second: {
-          x: stack[i][1][0],
-          y: stack[i][1][1]
-        },
-      });
-
-      deleteLine(line.first.x, line.first.y, line.second.x, line.second.y);
+      q[s] = [x + 1, y];
+      q[s + 1] = [x - 1, y];
+      q[s + 2] = [x, y + 1];
+      q[s + 3] = [x, y - 1];
     }
   }
+}
+
+canvasElem.addEventListener('mousedown', event => {
+  fill(event.pageX - canvasElem.offsetLeft, event.pageY - canvasElem.offsetTop, {r: 200, g: 100, b: 200, a: 255});
 });
