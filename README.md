@@ -1,4 +1,4 @@
-## Seminar 7
+## Seminar 8
 
 [![Build Status](https://travis-ci.org/vladpereskokov/BMSTU_Graphics.svg?branch=deploy)](https://travis-ci.org/vladpereskokov/BMSTU_Graphics)  
 
