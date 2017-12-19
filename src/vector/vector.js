@@ -13,10 +13,11 @@ export default class Vector {
 
   static rotate(vector, degrees) {
     const radians = degrees * Math.PI / 180;
-    const c = Math.cos(radians);
-    const s = Math.sin(radians);
+    const cos = Math.cos(radians);
+    const sin = Math.sin(radians);
 
-    return [Vector.__minus(c * vector[0], s * vector[1]), Vector.__add(s * vector[0], c * vector[1])];
+    return [Vector.__minus(cos * vector[0], sin * vector[1]),
+      Vector.__add(sin * vector[0], cos * vector[1])];
   }
 
   static __add(lhs, rhs) {
