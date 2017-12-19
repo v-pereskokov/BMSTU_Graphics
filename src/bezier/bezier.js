@@ -59,18 +59,18 @@ export default class Bezier {
   }
 
   static f1(param) {
-    return (param * param * param);
+    return param * param * param;
   }
 
   static f2(param) {
-    return (3 * param * param * (1 - param));
+    return 3 * param * param * (1 - param);
   }
 
   static f3(param) {
-    return (3 * param * (1 - param) * (1 - param));
+    return 3 * param * (1 - param) * (1 - param);
   }
 
   static f4(param) {
-    return ((1 - param) * (1 - param) * (1 - param));
+    return (1 - param) * (1 - param) * (1 - param);
   }
 }
